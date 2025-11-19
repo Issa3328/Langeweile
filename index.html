@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wohnheim-Einsatzplaner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="hero">
+        <div>
+          <p class="eyebrow">Wohnheim-Werkzeug</p>
+          <h1>Gemeinsam organisiert bleiben</h1>
+          <p>
+            Dokumentiere schnell, wer bei kleineren Aufgaben geholfen hat, damit
+            du beim nächsten Mal fair einteilen kannst.
+          </p>
+        </div>
+        <div class="stats" aria-live="polite">
+          <div>
+            <span id="memberCount">0</span>
+            <p>Mitglieder</p>
+          </div>
+          <div>
+            <span id="taskCount">0</span>
+            <p>Einsätze</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Mitglieder verwalten</h2>
+          <p>Lege Bewohner an und behalte ihren Einsatzstand im Blick.</p>
+        </div>
+        <form id="memberForm" class="inline-form">
+          <label class="sr-only" for="memberName">Name</label>
+          <input
+            id="memberName"
+            name="memberName"
+            type="text"
+            placeholder="z. B. Alex"
+            required
+          />
+          <button type="submit">Hinzufügen</button>
+        </form>
+        <div id="memberList" class="member-list"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Neuen Einsatz erfassen</h2>
+          <p>Trage Aufgabe, Datum und alle Helfenden ein.</p>
+        </div>
+        <form id="taskForm" class="task-form">
+          <div class="form-grid">
+            <label>
+              <span>Aufgabe</span>
+              <input name="taskTitle" type="text" required placeholder="z. B. Keller aufräumen" />
+            </label>
+            <label>
+              <span>Datum</span>
+              <input name="taskDate" type="date" required />
+            </label>
+          </div>
+          <label>
+            <span>Notizen (optional)</span>
+            <textarea name="taskNotes" rows="2" placeholder="Besondere Umstände, Dauer, usw."></textarea>
+          </label>
+          <fieldset>
+            <legend>Wer war dabei?</legend>
+            <div class="participant-toolbar">
+              <label class="sr-only" for="participantSearch">Mitglied suchen</label>
+              <input
+                id="participantSearch"
+                type="search"
+                placeholder="Name oder Kürzel eingeben"
+                autocomplete="off"
+              />
+              <div class="participant-actions">
+                <span id="participantMatchCount" class="small muted"></span>
+                <button type="button" id="selectAllParticipants" class="ghost small">Alle auswählen</button>
+                <button type="button" id="clearParticipants" class="ghost small">Zurücksetzen</button>
+              </div>
+            </div>
+            <div id="participantOptions" class="participant-grid" role="group"></div>
+            <p class="hint">Kein Haken? Dann einfach leer lassen – du kannst später jederzeit nachtragen.</p>
+          </fieldset>
+          <button type="submit" class="primary">Einsatz speichern</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <div class="panel-header">
+          <h2>Übersicht &amp; Verlauf</h2>
+          <p>Vergleiche Einsätze und erkenne sofort, wer zuletzt aktiv war.</p>
+        </div>
+        <div id="taskList" class="task-list"></div>
+      </section>
+    </main>
+
+    <template id="memberTemplate">
+      <article class="member-card">
+        <div>
+          <h3></h3>
+          <p class="small muted">0 Einsätze</p>
+        </div>
+        <button type="button" class="ghost">Entfernen</button>
+      </article>
+    </template>
+
+    <template id="taskTemplate">
+      <article class="task-card">
+        <header>
+          <div>
+            <p class="small muted"></p>
+            <h3></h3>
+          </div>
+          <button type="button" class="ghost">Löschen</button>
+        </header>
+        <p class="notes"></p>
+        <div class="participants"></div>
+        <details>
+          <summary>Anpassen</summary>
+          <form class="edit-form"></form>
+        </details>
+      </article>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
